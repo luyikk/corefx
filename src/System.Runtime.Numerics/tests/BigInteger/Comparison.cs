@@ -17,7 +17,7 @@ namespace System.Numerics.Tests
             RunTests(seed);
         }
 
-        public static void RunTests(int seed)
+        private static void RunTests(int seed)
         {
             Random random = new Random(seed);
 
@@ -350,16 +350,16 @@ namespace System.Numerics.Tests
         private static void RunNegativeTests(Random random)
         {
             // BigInteger.Zero, 0
-            Assert.Equal(false, BigInteger.Zero.Equals((object)0));
+            Assert.False(BigInteger.Zero.Equals((object)0));
 
             // BigInteger.Zero, null
-            Assert.Equal(false, BigInteger.Zero.Equals((object)null));
+            Assert.False(BigInteger.Zero.Equals((object)null));
 
             // BigInteger.Zero, string
-            Assert.Equal(false, BigInteger.Zero.Equals((object)"0"));
+            Assert.False(BigInteger.Zero.Equals((object)"0"));
         }
 
-        public static void IComparable_Invalid(string paramName)
+        private static void IComparable_Invalid(string paramName)
         {
             IComparable comparable = new BigInteger();
             Assert.Equal(1, comparable.CompareTo(null));

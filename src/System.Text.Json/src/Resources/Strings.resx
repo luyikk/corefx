@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -155,8 +156,8 @@
   <data name="CannotWritePropertyAfterProperty" xml:space="preserve">
     <value>Cannot write a JSON property name following another property name. A JSON value is missing.</value>
   </data>
-  <data name="CannotWriteValueAfterPrimitive" xml:space="preserve">
-    <value>Cannot write a JSON value after a single JSON value. Current token type is '{0}'.</value>
+  <data name="CannotWriteValueAfterPrimitiveOrClose" xml:space="preserve">
+    <value>Cannot write a JSON value after a single JSON value or outside of an existing closed object/array. Current token type is '{0}'.</value>
   </data>
   <data name="CannotWriteValueWithinObject" xml:space="preserve">
     <value>Cannot write a JSON value within an object without a property name. Current token type is '{0}'.</value>
@@ -296,9 +297,6 @@
   <data name="ZeroDepthAtEnd" xml:space="preserve">
     <value>Expected depth to be zero at the end of the JSON payload. There is an open JSON object or array that should be closed.</value>
   </data>
-  <data name="DeserializeCannotBeNull" xml:space="preserve">
-    <value>The JSON value cannot be null.</value>
-  </data>
   <data name="DeserializeDataRemaining" xml:space="preserve">
     <value>The provided data of length {0} has remaining bytes {1}.</value>
   </data>
@@ -403,6 +401,9 @@
   </data>
   <data name="SerializationConverterWrite" xml:space="preserve">
     <value>The converter '{0}' wrote too much or not enough.</value>
+  </data>
+  <data name="SerializerDictionaryKeyNull" xml:space="preserve">
+    <value>The dictionary key policy '{0}' cannot return a null key.</value>
   </data>
   <data name="SerializationDuplicateAttribute" xml:space="preserve">
     <value>The attribute '{0}' cannot exist more than once on '{1}'.</value>

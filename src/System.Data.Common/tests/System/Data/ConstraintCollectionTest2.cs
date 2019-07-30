@@ -399,7 +399,7 @@ namespace System.Data.Tests
             TestException(new testExceptionMethodCallback(DataProvider.TryToBreakForigenConstraint), arr);
         }
 
-        public void TestException(testExceptionMethodCallback dlg, IList exceptionList)
+        private static void TestException(testExceptionMethodCallback dlg, IList exceptionList)
         {
             Exception ex = Assert.ThrowsAny<Exception>(() => dlg());
             foreach (Exception expectedEx in exceptionList)
@@ -562,7 +562,7 @@ namespace System.Data.Tests
             dt = DataProvider.CreateUniqueConstraint();
             dt.Constraints.CollectionChanged += new CollectionChangeEventHandler(Constraints_CollectionChanged);
             dt.Constraints.RemoveAt(0);
-            Assert.Equal(true, _collectionChanged);
+            Assert.True(_collectionChanged);
 
             ArrayList arr = new ArrayList(1);
             arr.Add(new IndexOutOfRangeException());

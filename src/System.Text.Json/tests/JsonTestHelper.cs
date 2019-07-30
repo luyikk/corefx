@@ -17,6 +17,14 @@ namespace System.Text.Json
 {
     internal static class JsonTestHelper
     {
+#if BUILDING_INBOX_LIBRARY
+        public const string DoubleFormatString = null;
+        public const string SingleFormatString = null;
+#else
+        public const string DoubleFormatString = "G17";
+        public const string SingleFormatString = "G9";
+#endif
+
         public static string NewtonsoftReturnStringHelper(TextReader reader)
         {
             var sb = new StringBuilder();
@@ -663,6 +671,32 @@ namespace System.Text.Json
                     return stringWriter.ToString();
                 }
             }
+        }
+
+        public static void AssertContents(string expectedValue, ArrayBufferWriter<byte> buffer)
+        {
+            string value = Encoding.UTF8.GetString(
+                    buffer.WrittenSpan
+#if netfx
+                        .ToArray()
+#endif
+                    );
+
+            // Temporary hack until we can use the same escape algorithm on both sides and make sure we want uppercase hex.
+            Assert.Equal(expectedValue.NormalizeToJsonNetFormat(), value.NormalizeToJsonNetFormat());
+        }
+
+        public static void AssertContentsNotEqual(string expectedValue, ArrayBufferWriter<byte> buffer)
+        {
+            string value = Encoding.UTF8.GetString(
+                    buffer.WrittenSpan
+#if netfx
+                        .ToArray()
+#endif
+                    );
+
+            // Temporary hack until we can use the same escape algorithm on both sides and make sure we want uppercase hex.
+            Assert.NotEqual(expectedValue.NormalizeToJsonNetFormat(), value.NormalizeToJsonNetFormat());
         }
 
         public delegate void AssertThrowsActionUtf8JsonReader(Utf8JsonReader json);

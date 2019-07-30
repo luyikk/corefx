@@ -42,12 +42,6 @@ namespace System.Text.Json
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void ThrowJsonException_DeserializeCannotBeNull(in Utf8JsonReader reader, string path)
-        {
-            ThrowJsonException(SR.DeserializeCannotBeNull, in reader, path);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void ThrowJsonException_DepthTooLarge(int currentDepth, in WriteStack writeStack, JsonSerializerOptions options)
         {
             var ex = new JsonException(SR.Format(SR.DepthTooLarge, currentDepth, options.EffectiveMaxDepth));
@@ -92,15 +86,16 @@ namespace System.Text.Json
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        public static void ThrowInvalidOperationException_SerializationConverterOnAttributeNotCompatible(Type classType, PropertyInfo propertyInfo)
+        public static void ThrowInvalidOperationException_SerializationConverterOnAttributeNotCompatible(Type classTypeAttributeIsOn, PropertyInfo propertyInfo, Type typeToConvert)
         {
-            string location = classType.ToString();
+            string location = classTypeAttributeIsOn.ToString();
+
             if (propertyInfo != null)
             {
-                location += $".{propertyInfo.ToString()}";
+                location += $".{propertyInfo.Name}";
             }
 
-            throw new InvalidOperationException(SR.Format(SR.SerializationConverterOnAttributeNotCompatible, location));
+            throw new InvalidOperationException(SR.Format(SR.SerializationConverterOnAttributeNotCompatible, location, typeToConvert));
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -119,6 +114,12 @@ namespace System.Text.Json
         public static void ThrowInvalidOperationException_SerializerPropertyNameNull(Type parentType, JsonPropertyInfo jsonPropertyInfo)
         {
             throw new InvalidOperationException(SR.Format(SR.SerializerPropertyNameNull, parentType, jsonPropertyInfo.PropertyInfo.Name));
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void ThrowInvalidOperationException_SerializerDictionaryKeyNull(Type policyType)
+        {
+            throw new InvalidOperationException(SR.Format(SR.SerializerDictionaryKeyNull, policyType));
         }
 
         public static void ThrowJsonException_DeserializeDataRemaining(long length, long bytesRemaining)
